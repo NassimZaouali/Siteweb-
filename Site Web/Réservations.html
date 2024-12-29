@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Réservations</title>
+    <style>
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('anastasiia-chepinska-lcfH0p6emhw-unsplash-2-1.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #fff8f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        #reservations {
+            padding: 130px 30px;
+            text-align: center;
+            background-color: rgba(93, 70, 13, 0.8);
+            margin: auto;
+            max-width: 400px;
+            border-radius: 50px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        form {
+            margin: 20px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            color: #333;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        form input, form button {
+            width: calc(100% - 20px);
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        form button {
+            background-color: #2a4324;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.3s;
+        }
+
+        form button:hover {
+            background-color: #039f22;
+        }
+
+        .message {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .success {
+            background-color: #039f22;
+            color: white;
+        }
+
+        .error {
+            background-color: #d9534f;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    
+    <section id="reservations">
+        <h1>Réservez une table</h1>
+        <p>Sélectionnez une date et un horaire pour réserver votre table.</p>
+
+        <form id="reservation-form">
+            <label for="date">Date :</label>
+            <input type="date" id="date" name="date" required>
+
+            <label for="time">Heure :</label>
+            <input type="time" id="time" name="time" required>
+
+            <button type="submit">Réserver</button>
+        </form>
+
+        <div id="message" class="message" style="display: none;"></div>
+    </section>
+
+    <script>
+        const form = document.getElementById('reservation-form');
+        const messageDiv = document.getElementById('message');
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); 
+
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('time').value;
+
+            
+            const currentDate = new Date();
+            const selectedDate = new Date(date + 'T' + time);
+
+            if (selectedDate > currentDate) {
+                messageDiv.textContent = "La réservation est validée.";
+                messageDiv.className = "message success";
+            } else {
+                messageDiv.textContent = "La réservation n'est pas valide. Veuillez choisir une date et une heure futures.";
+                messageDiv.className = "message error";
+            }
+
+            messageDiv.style.display = "block";
+        });
+    </script>
+</body>
+</html>

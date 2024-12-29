@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recette Client</title>
+    <style>
+        body {
+             
+    font-family: Arial, sans-serif;
+    background-image: url('anastasiia-chepinska-lcfH0p6emhw-unsplash-2-1.jpg'); 
+    background-size: cover;
+    background-position: center; 
+    background-attachment: fixed; 
+    color: #fffefe;}
+
+
+        h1 {
+            text-align: center;
+            color: #ffffff;
+        }
+
+        .produit-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .produit {
+            background-color: #4e2907;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px #fefefe1a;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .produit-info h2 {
+            font-size: 1.2em;
+            margin: 10px 0;
+            color: #fff4f4;
+        }
+
+        .produit-info button {
+            background-color: #d59407;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .produit-info button:hover {
+            background-color: #5e3b03;
+        }
+
+        #total {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 1.5em;
+            color: #ffffff;
+        }
+
+        .valider-btn {
+            background-color: #4e2907;
+            color: rgb(245, 241, 241);
+            border: none;
+            padding: 15px 32px;
+            text-align: center;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%;
+            max-width: 300px;
+            margin: 20px auto;
+            display: block;
+            transition: background-color 0.3s ease;
+        }
+
+        .valider-btn:hover {
+            background-color: #976907;
+        }
+
+        .valider-btn:active {
+            background-color: #705800;
+        }
+    </style>
+</head>
+<body>
+    <h1>Recette Client</h1>
+    <div class="produit-container" id="produit-list">
+        
+    </div>
+    <div id="total">Montant total : <strong>0 DT</strong></div>
+    <button id="validerCommande" class="valider-btn">Valider la commande</button>
+
+    <script>
+        
+        const produits = [
+        { section: "Boissons", name: "Café Expresso", price: 2200 },
+            { section: "Boissons", name: "Café Latte", price: 4000 },
+            { section: "Boissons", name: "Cappuccino", price: 4500 },
+            { section: "Boissons", name: "Thé vert", price: 2500 },
+            { section: "Boissons", name: "Chocolat Chaud", price: 4000 },
+            { section: "Boissons", name: "Américano", price: 3800 },
+            { section: "Boissons", name: "Macchiato", price: 4000 },
+            { section: "Pâtisseries", name: "Croissant", price: 2000 },
+            { section: "Pâtisseries", name: "Pain au chocolat", price: 2400 },
+            { section: "Pâtisseries", name: "Muffin aux Myrtilles", price: 3000 },
+            { section: "Pâtisseries", name: "Tartelle aux Citron", price: 3500 },
+            { section: "Pâtisseries", name: "Gateau aux Chocolat", price: 4000 },
+            { section: "Pâtisseries", name: "Madleine", price: 2400 },
+            { section: "Pâtisseries", name: "Brioche à la canelle", price: 3000 },
+            { section: "Snacks", name: "Sandwich jambon-fromage", price: 5500 },
+            { section: "Snacks", name: "Panini au Poulet", price: 6000 },
+            { section: "Snacks", name: "Toast avocat et oeuf poché", price: 6500 },
+            { section: "Snacks", name: "Salade César", price: 7500 },
+            { section: "Snacks", name: "Wrap végétarien", price: 5800 },
+            { section: "Snacks", name: "Chips Maison", price: 2400 },
+            { section: "Options végétariennes", name: "Salade de quinoa", price: 6500 },
+            { section: "Options végétariennes", name: "Falafel avec Houmous", price: 7000 },
+            { section: "Options végétariennes", name: "Panini végétarien (tomates, mozzarella, basilic) ", price: 3000 },
+            { section: "Options végétariennes", name: "Soupes du jour (servies avec pain frais) ", price: 4000 },
+            { section: "Desserts", name: "Crème brûlée", price: 6000 },
+            { section: "Desserts", name: "Tiramisu", price: 5500 },
+            { section: "Desserts", name: "Cheesecake aux fruits rouges ", price: 6000 },
+            { section: "Desserts", name: "Panna cotta à la vanille", price: 5500 } ,
+            { section: "Desserts", name: "Biscuits maison", price: 2500 },
+        ];
+
+        const produitListElement = document.getElementById("produit-list");
+        const totalElement = document.getElementById("total").querySelector("strong");
+        const validerCommandeBtn = document.getElementById("validerCommande");
+
+        let total = 0;
+        let produitsAjoutes = [];
+
+        
+        produits.forEach((produit) => {
+            const produitDiv = document.createElement("div");
+            produitDiv.classList.add("produit");
+
+            const prixAvecVirgule = (produit.price / 1000).toFixed(3).replace('.', ',');
+
+            produitDiv.innerHTML = `
+                <div class="produit-info">
+                    <h2>${produit.name}</h2>
+                    <p>Prix : ${prixAvecVirgule} DT</p>
+                    <button data-price="${produit.price}" data-name="${produit.name}">Ajouter</button>
+                </div>
+            `;
+
+            produitListElement.appendChild(produitDiv);
+
+            const addButton = produitDiv.querySelector("button");
+            addButton.addEventListener("click", () => {
+                total += produit.price;
+                produitsAjoutes.push({ name: produit.name, price: produit.price });
+                const totalAvecVirgule = (total / 1000).toFixed(3).replace('.', ',');
+                totalElement.textContent = `${totalAvecVirgule} DT`;
+            });
+        });
+
+       
+        validerCommandeBtn.addEventListener("click", () => {
+            if (total > 0) {
+                let message = "Votre commande a bien été enregistrée !\n\nAddition :\n";
+
+                let montantAddition = 0;
+
+                produitsAjoutes.forEach((produit) => {
+                    const prixAvecVirgule = (produit.price / 1000).toFixed(3).replace('.', ',');
+                    montantAddition += produit.price;
+                    const totalAddition = (montantAddition / 1000).toFixed(3).replace('.', ',');
+                    message += `${produit.name} - ${prixAvecVirgule} DT\n= ${totalAddition} DT\n`;
+                });
+
+                message += `\nMontant total final : ${(total / 1000).toFixed(3).replace('.', ',')} DT`;
+
+                alert(message);
+
+                
+                total = 0;
+                produitsAjoutes = [];
+                totalElement.textContent = "0 DT";
+            } else {
+                alert("Aucune commande ajoutée !");
+            }
+        });
+    </script>
+</body>
+</html>

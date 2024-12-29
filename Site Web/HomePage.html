@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Vitrine - Page d'Accueil</title>
+    <link rel="stylesheet" href="styles.css"> 
+</head>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-image: url('anastasiia-chepinska-lcfH0p6emhw-unsplash-2-1.jpg'); 
+    background-size: cover; 
+    background-position: center; 
+    background-attachment: fixed; 
+    color: #fff8f8;
+}
+
+
+.navbar {
+    background-color: rgba(42, 67, 36, 0.8); 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 10px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.navbar .logo img {
+    width: 90px; 
+
+}
+
+.navbar-links {
+    list-style: none;
+    display: flex;
+}
+
+.navbar-links li {
+    margin-left: 30px;
+}
+
+.navbar-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s ease;
+}
+
+.navbar-links a:hover {
+    color: #039f22; 
+}
+
+
+#accueil {
+    padding: 400px 100px; 
+    text-align: center;
+    background-color: rgba(93, 70, 13, 0.8); 
+    margin-top: 112x; 
+}
+
+#accueil h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+#accueil p {
+    font-size: 1.2em;
+}
+
+
+</style>
+<body>
+   
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="Capture d’écran 2024-12-13 200855.png" alt="Logo de la marque" width="100"> 
+            </div>
+            <ul class="navbar-links">
+                <li><a href="Produits.html">Produits</a></li>
+                <li><a href="Réservations.html">Réservations</a></li>
+                <li><a href="Login&Se Connecter.html">Login/Se Connecter</a></li>
+                <li><a href="contactez-nous.html">Contactez-nous</a></li>
+            </ul>
+            
+            
+        </nav>
+    </header>
+
+    
+    <section id="accueil">
+        <h1>Bienvenue sur notre Vitrine !</h1>
+        <p>Découvrez nos produits, Réservez en ligne et connectez-vous pour plus de services.</p>
+    </section>
+</body>
+</html>
